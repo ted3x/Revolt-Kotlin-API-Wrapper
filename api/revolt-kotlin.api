@@ -1,0 +1,2228 @@
+public final class app/revolt/RevoltApi {
+	public final fun getAdmin ()Lapp/revolt/services/RevoltAdminApiService;
+	public final fun getAuth ()Lapp/revolt/services/auth/RevoltAuthApiService;
+	public final fun getBots ()Lapp/revolt/services/RevoltBotsApiService;
+	public final fun getChannels ()Lapp/revolt/services/RevoltChannelsApiService;
+	public final fun getCore ()Lapp/revolt/services/RevoltCoreApiService;
+	public final fun getCustomisation ()Lapp/revolt/services/RevoltCustomisationApiService;
+	public final fun getInvites ()Lapp/revolt/services/RevoltInvitesApiService;
+	public final fun getMisc ()Lapp/revolt/services/RevoltMiscApiService;
+	public final fun getServers ()Lapp/revolt/services/RevoltServersApiService;
+	public final fun getUsers ()Lapp/revolt/services/RevoltUsersApiService;
+	public final fun getWs ()Lapp/revolt/websocket/RevoltApiWebSocket;
+	public final fun updateToken (Ljava/lang/String;)V
+}
+
+public final class app/revolt/RevoltApiConfig {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/RevoltApiConfig;
+	public static synthetic fun copy$default (Lapp/revolt/RevoltApiConfig;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/RevoltApiConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/RevoltApiKt {
+	public static final fun revoltApi (Lapp/revolt/RevoltApiConfig;)Lapp/revolt/RevoltApi;
+}
+
+public abstract interface class app/revolt/client/ApiClientProvider {
+	public abstract fun getClient ()Lio/ktor/client/HttpClient;
+	public abstract fun updateToken (Ljava/lang/String;)V
+}
+
+public abstract class app/revolt/exception/RevoltApiException : java/lang/Throwable {
+	public static final field Companion Lapp/revolt/exception/RevoltApiException$Companion;
+	public synthetic fun <init> (ILapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public synthetic fun <init> (Lapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getError ()Lapp/revolt/exception/RevoltErrorApiType;
+	public fun getLocation ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/exception/RevoltApiException;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/exception/RevoltApiException$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/exception/RevoltApiException$CountLimitException : app/revolt/exception/RevoltApiException {
+	public fun <init> (ILapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lapp/revolt/exception/RevoltErrorApiType;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (ILapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$CountLimitException;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$CountLimitException;ILapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$CountLimitException;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getError ()Lapp/revolt/exception/RevoltErrorApiType;
+	public fun getLocation ()Ljava/lang/String;
+	public final fun getMax ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$DatabaseError : app/revolt/exception/RevoltApiException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$DatabaseError;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$DatabaseError;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$DatabaseError;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCollection ()Ljava/lang/String;
+	public fun getLocation ()Ljava/lang/String;
+	public final fun getOperation ()Ljava/lang/String;
+	public final fun getWith ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$Default : app/revolt/exception/RevoltApiException {
+	public fun <init> (Lapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;)V
+	public final fun component1 ()Lapp/revolt/exception/RevoltErrorApiType;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$Default;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$Default;Lapp/revolt/exception/RevoltErrorApiType;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$Default;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getError ()Lapp/revolt/exception/RevoltErrorApiType;
+	public fun getLocation ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$FieldValidation : app/revolt/exception/RevoltApiException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$FieldValidation;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$FieldValidation;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$FieldValidation;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFieldError ()Ljava/lang/String;
+	public fun getLocation ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$MissingPermission : app/revolt/exception/RevoltApiException {
+	public fun <init> (Lapp/revolt/exception/RevoltPermissionApiType;Ljava/lang/String;)V
+	public final fun component1 ()Lapp/revolt/exception/RevoltPermissionApiType;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lapp/revolt/exception/RevoltPermissionApiType;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$MissingPermission;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$MissingPermission;Lapp/revolt/exception/RevoltPermissionApiType;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$MissingPermission;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLocation ()Ljava/lang/String;
+	public final fun getPermissionType ()Lapp/revolt/exception/RevoltPermissionApiType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$MissingUserPermission : app/revolt/exception/RevoltApiException {
+	public fun <init> (Lapp/revolt/exception/RevoltUserPermissionApiType;Ljava/lang/String;)V
+	public final fun component1 ()Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lapp/revolt/exception/RevoltUserPermissionApiType;Ljava/lang/String;)Lapp/revolt/exception/RevoltApiException$MissingUserPermission;
+	public static synthetic fun copy$default (Lapp/revolt/exception/RevoltApiException$MissingUserPermission;Lapp/revolt/exception/RevoltUserPermissionApiType;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/exception/RevoltApiException$MissingUserPermission;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLocation ()Ljava/lang/String;
+	public final fun getPermissionType ()Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiException$Unknown : app/revolt/exception/RevoltApiException {
+	public static final field INSTANCE Lapp/revolt/exception/RevoltApiException$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/exception/RevoltApiExceptionHandler {
+	public static final field Companion Lapp/revolt/exception/RevoltApiExceptionHandler$Companion;
+	public fun <init> ()V
+	public final fun handle (Lkotlinx/serialization/json/Json;Ljava/lang/Throwable;Lio/ktor/client/request/HttpRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/exception/RevoltApiExceptionHandler$Companion {
+}
+
+public final class app/revolt/exception/RevoltErrorApiType : java/lang/Enum {
+	public static final field AlreadyFriends Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field AlreadyInGroup Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field AlreadyOnboarded Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field AlreadySentRequest Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field Banned Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field Blocked Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field BlockedByOther Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field BotIsPrivate Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field CannotEditMessage Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field CannotGiveMissingPermissions Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field CannotJoinCall Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field CannotRemoveYourself Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field CannotReportYourself Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field Core Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field DatabaseError Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field DuplicateNonce Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field EmptyMessage Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field FailedValidation Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field FieldValidation Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field GroupTooLarge Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InternalError Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidCredentials Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidOperation Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidProperty Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidRole Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidSession Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidToken Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field InvalidUsername Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field IsBot Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field LabelMe Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field MissingPermission Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field MissingUserPermission Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NoEffect Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotElevated Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotFound Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotFriends Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotInGroup Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotOwner Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field NotPrivileged Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field PayloadTooLarge Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field ReachedMaximumBots Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyAttachments Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyChannels Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyEmbeds Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyEmoji Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyReplies Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyRoles Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field TooManyServers Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field Unknown Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UnknownAttachment Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UnknownChannel Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UnknownMessage Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UnknownServer Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UnknownUser Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field UsernameTaken Lapp/revolt/exception/RevoltErrorApiType;
+	public static final field VosoUnavailable Lapp/revolt/exception/RevoltErrorApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getType ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/exception/RevoltErrorApiType;
+	public static fun values ()[Lapp/revolt/exception/RevoltErrorApiType;
+}
+
+public final class app/revolt/exception/RevoltPermissionApiType : java/lang/Enum {
+	public static final field AssignRoles Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field BanMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ChangeAvatar Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ChangeNickname Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field Connect Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field DeafenMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field GrantAll Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field GrantAllSafe Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field InviteOthers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field KickMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageChannel Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageCustomisation Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageMessages Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageNicknames Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManagePermissions Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageRole Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageServer Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ManageWebhooks Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field Masquerade Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field MoveMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field MuteMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field React Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ReadMessageHistory Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field RemoveAvatars Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field SendEmbeds Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field SendMessage Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field Speak Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field TimeoutMembers Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field UploadFiles Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field Video Lapp/revolt/exception/RevoltPermissionApiType;
+	public static final field ViewChannel Lapp/revolt/exception/RevoltPermissionApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getType ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/exception/RevoltPermissionApiType;
+	public static fun values ()[Lapp/revolt/exception/RevoltPermissionApiType;
+}
+
+public final class app/revolt/exception/RevoltUserPermissionApiType : java/lang/Enum {
+	public static final field Access Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public static final field Invite Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public static final field SendMessage Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public static final field ViewProfile Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getType ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/exception/RevoltUserPermissionApiType;
+	public static fun values ()[Lapp/revolt/exception/RevoltUserPermissionApiType;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Features;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Build;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Features;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Build;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/RevoltConfigurationApiModel$Features;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Lapp/revolt/model/RevoltConfigurationApiModel$Build;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Features;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Build;)Lapp/revolt/model/RevoltConfigurationApiModel;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel;Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Features;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/RevoltConfigurationApiModel$Build;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getApp ()Ljava/lang/String;
+	public final fun getBuild ()Lapp/revolt/model/RevoltConfigurationApiModel$Build;
+	public final fun getFeatures ()Lapp/revolt/model/RevoltConfigurationApiModel$Features;
+	public final fun getRevolt ()Ljava/lang/String;
+	public final fun getVapid ()Ljava/lang/String;
+	public final fun getWs ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Build {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Build$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/RevoltConfigurationApiModel$Build;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel$Build;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel$Build;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCommitSHA ()Ljava/lang/String;
+	public final fun getCommitTimestamp ()Ljava/lang/String;
+	public final fun getOriginUrl ()Ljava/lang/String;
+	public final fun getSemver ()Ljava/lang/String;
+	public final fun getTimestamp ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel$Build;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Build$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$Build$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel$Build;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel$Build;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Build$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Features$Companion;
+	public synthetic fun <init> (ILapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;ZZLapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;ZZLapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;)V
+	public final fun component1 ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public final fun component5 ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public final fun component6 ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;
+	public final fun copy (Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;ZZLapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;)Lapp/revolt/model/RevoltConfigurationApiModel$Features;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel$Features;Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;ZZLapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel$Features;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAutumn ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public final fun getCaptcha ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;
+	public final fun getEmail ()Z
+	public final fun getInviteOnly ()Z
+	public final fun getJanuary ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public final fun getVoso ()Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel$Features;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$Features$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel$Features;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel$Features;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration$Companion;
+	public synthetic fun <init> (IZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (ZLjava/lang/String;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ZLjava/lang/String;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;ZLjava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$GeneralServerConfiguration$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration$Companion;
+	public synthetic fun <init> (IZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (ZLjava/lang/String;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ZLjava/lang/String;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;ZLjava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getKey ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$HCaptchaConfiguration$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration {
+	public static final field Companion Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration$Companion;
+	public synthetic fun <init> (IZLjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (ZLjava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (ZLjava/lang/String;Ljava/lang/String;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;
+	public static synthetic fun copy$default (Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getUrl ()Ljava/lang/String;
+	public final fun getWs ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/RevoltConfigurationApiModel$Features$VoiceServerConfiguration$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class app/revolt/model/auth/RevoltMFAApiModel {
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$Password : app/revolt/model/auth/RevoltMFAApiModel {
+	public static final field Companion Lapp/revolt/model/auth/RevoltMFAApiModel$Password$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/RevoltMFAApiModel$Password;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/RevoltMFAApiModel$Password;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/RevoltMFAApiModel$Password;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPassword ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/RevoltMFAApiModel$Password;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$Password$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/RevoltMFAApiModel$Password$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/RevoltMFAApiModel$Password;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/RevoltMFAApiModel$Password;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$Password$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$RecoveryCode : app/revolt/model/auth/RevoltMFAApiModel {
+	public static final field Companion Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRecoveryCode ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$RecoveryCode$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/RevoltMFAApiModel$RecoveryCode;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$RecoveryCode$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$TOTPCode : app/revolt/model/auth/RevoltMFAApiModel {
+	public static final field Companion Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTotpCode ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$TOTPCode$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/RevoltMFAApiModel$TOTPCode;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAApiModel$TOTPCode$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/RevoltMFAMethodApiType : java/lang/Enum {
+	public static final field Companion Lapp/revolt/model/auth/RevoltMFAMethodApiType$Companion;
+	public static final field Password Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public static final field Recovery Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public static final field Totp Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public static fun values ()[Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+}
+
+public final class app/revolt/model/auth/RevoltMFAMethodApiType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangeEmailApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCurrentPassword ()Ljava/lang/String;
+	public final fun getEmail ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangeEmailApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangeEmailApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangePasswordApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCurrentPassword ()Ljava/lang/String;
+	public final fun getPassword ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangePasswordApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltChangePasswordApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltCreateAccountApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCaptcha ()Ljava/lang/String;
+	public final fun getEmail ()Ljava/lang/String;
+	public final fun getInvite ()Ljava/lang/String;
+	public final fun getPassword ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltCreateAccountApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltCreateAccountApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResendVerificationApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCaptcha ()Ljava/lang/String;
+	public final fun getEmail ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResendVerificationApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResendVerificationApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResetPasswordApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;ZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Z)Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPassword ()Ljava/lang/String;
+	public final fun getRemoveSessions ()Z
+	public final fun getToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResetPasswordApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltResetPasswordApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCaptcha ()Ljava/lang/String;
+	public final fun getEmail ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltFetchAccountApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEmail ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/response/RevoltFetchAccountApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/response/RevoltFetchAccountApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltFetchAccountApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Companion;
+	public synthetic fun <init> (ILapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;)V
+	public final fun component1 ()Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;
+	public final fun copy (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;ILjava/lang/Object;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTicket ()Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket {
+	public static final field Companion Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccountId ()Ljava/lang/String;
+	public final fun getAuthorised ()Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getLastTotpCode ()Ljava/lang/String;
+	public final fun getToken ()Ljava/lang/String;
+	public final fun getValidated ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/account/response/RevoltVerifyEmailApiResponse$Ticket$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPassword ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccountId ()Ljava/lang/String;
+	public final fun getAuthorised ()Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getLastTotpCode ()Ljava/lang/String;
+	public final fun getToken ()Ljava/lang/String;
+	public final fun getValidated ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltCreateMFATicketApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSecret ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltGenerateTOTPSecretApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse$Companion;
+	public synthetic fun <init> (IZZZZZZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (ZZZZZZ)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (ZZZZZZ)Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;ZZZZZZILjava/lang/Object;)Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEmailMFA ()Z
+	public final fun getEmailOtp ()Z
+	public final fun getRecoveryActive ()Z
+	public final fun getSecurityKeyMFA ()Z
+	public final fun getTotpMFA ()Z
+	public final fun getTrustedHandover ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/mfa/response/RevoltMFAStatusApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUsername ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse$Companion;
+	public synthetic fun <init> (IZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;ZILjava/lang/Object;)Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOnboarding ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/onboarding/response/RevoltOnboardingStatusApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class app/revolt/model/auth/session/request/RevoltLoginApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Companion;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA {
+	public static final field Companion Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/auth/RevoltMFAApiModel;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAApiModel;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAApiModel;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/auth/RevoltMFAApiModel;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAApiModel;Ljava/lang/String;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAApiModel;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFriendlyName ()Ljava/lang/String;
+	public final fun getMfaResponse ()Lapp/revolt/model/auth/RevoltMFAApiModel;
+	public final fun getMfaTicket ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$MFA$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal : app/revolt/model/auth/session/request/RevoltLoginApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEmail ()Ljava/lang/String;
+	public final fun getFriendlyName ()Ljava/lang/String;
+	public final fun getPassword ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltLoginApiRequest$Normal$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltSessionEditApiRequest {
+	public static final field Companion Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFriendlyName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/request/RevoltSessionEditApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/request/RevoltSessionEditApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltFetchSessionApiResponse {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/session/response/RevoltFetchSessionApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/response/RevoltFetchSessionApiResponse;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/response/RevoltFetchSessionApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class app/revolt/model/auth/session/response/RevoltLoginApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Companion;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled : app/revolt/model/auth/session/response/RevoltLoginApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUserId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Disabled$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA : app/revolt/model/auth/session/response/RevoltLoginApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/auth/RevoltMFAMethodApiType;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAMethodApiType;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAMethodApiType;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;Ljava/lang/String;Lapp/revolt/model/auth/RevoltMFAMethodApiType;ILjava/lang/Object;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowedMethods ()Lapp/revolt/model/auth/RevoltMFAMethodApiType;
+	public final fun getTicket ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$MFA$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success : app/revolt/model/auth/session/response/RevoltLoginApiResponse {
+	public static final field Companion Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;ILjava/lang/Object;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSubscription ()Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;
+	public final fun getToken ()Ljava/lang/String;
+	public final fun getUserId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription {
+	public static final field Companion Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;
+	public static synthetic fun copy$default (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuth ()Ljava/lang/String;
+	public final fun getEndpoint ()Ljava/lang/String;
+	public final fun getP256dh ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/auth/session/response/RevoltLoginApiResponse$Success$Subscription$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltFileApiModel {
+	public static final field Companion Lapp/revolt/model/general/RevoltFileApiModel$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltMetadataApiModel;Ljava/lang/String;ILjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltMetadataApiModel;Ljava/lang/String;ILjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltMetadataApiModel;Ljava/lang/String;ILjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lapp/revolt/model/general/RevoltMetadataApiModel;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun component8 ()Ljava/lang/Boolean;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltMetadataApiModel;Ljava/lang/String;ILjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lapp/revolt/model/general/RevoltFileApiModel;
+	public static synthetic fun copy$default (Lapp/revolt/model/general/RevoltFileApiModel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltMetadataApiModel;Ljava/lang/String;ILjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/general/RevoltFileApiModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContentType ()Ljava/lang/String;
+	public final fun getDeleted ()Ljava/lang/Boolean;
+	public final fun getFilename ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getMessageId ()Ljava/lang/String;
+	public final fun getMetadata ()Lapp/revolt/model/general/RevoltMetadataApiModel;
+	public final fun getObjectId ()Ljava/lang/String;
+	public final fun getReported ()Ljava/lang/Boolean;
+	public final fun getServerId ()Ljava/lang/String;
+	public final fun getSize ()I
+	public final fun getTag ()Ljava/lang/String;
+	public final fun getUserId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/general/RevoltFileApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/general/RevoltFileApiModel$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltFileApiModel$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/general/RevoltFileApiModel;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/general/RevoltFileApiModel;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltFileApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field Companion Lapp/revolt/model/general/RevoltMetadataApiModel$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lapp/revolt/model/general/RevoltMetadataApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Audio : app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltMetadataApiModel$Audio;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$File : app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltMetadataApiModel$File;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Image : app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field Companion Lapp/revolt/model/general/RevoltMetadataApiModel$Image$Companion;
+	public fun <init> (II)V
+	public synthetic fun <init> (IIILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lapp/revolt/model/general/RevoltMetadataApiModel$Image;
+	public static synthetic fun copy$default (Lapp/revolt/model/general/RevoltMetadataApiModel$Image;IIILjava/lang/Object;)Lapp/revolt/model/general/RevoltMetadataApiModel$Image;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHeight ()I
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/general/RevoltMetadataApiModel$Image;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Image$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltMetadataApiModel$Image$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/general/RevoltMetadataApiModel$Image;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/general/RevoltMetadataApiModel$Image;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Image$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Text : app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltMetadataApiModel$Text;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Video : app/revolt/model/general/RevoltMetadataApiModel {
+	public static final field Companion Lapp/revolt/model/general/RevoltMetadataApiModel$Video$Companion;
+	public fun <init> (II)V
+	public synthetic fun <init> (IIILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lapp/revolt/model/general/RevoltMetadataApiModel$Video;
+	public static synthetic fun copy$default (Lapp/revolt/model/general/RevoltMetadataApiModel$Video;IIILjava/lang/Object;)Lapp/revolt/model/general/RevoltMetadataApiModel$Video;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHeight ()I
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/general/RevoltMetadataApiModel$Video;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Video$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/general/RevoltMetadataApiModel$Video$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/general/RevoltMetadataApiModel$Video;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/general/RevoltMetadataApiModel$Video;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltMetadataApiModel$Video$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/general/RevoltRelationshipStatusApiType : java/lang/Enum {
+	public static final field Blocked Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field BlockedOther Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field Companion Lapp/revolt/model/general/RevoltRelationshipStatusApiType$Companion;
+	public static final field Friend Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field Incoming Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field None Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field Outgoing Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static final field User Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public static fun values ()[Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+}
+
+public final class app/revolt/model/general/RevoltRelationshipStatusApiType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserApiModel$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Ljava/util/List;Ljava/lang/Integer;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Boolean;Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Ljava/lang/Boolean;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Ljava/util/List;Ljava/lang/Integer;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Boolean;Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Ljava/util/List;Ljava/lang/Integer;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Boolean;Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/Integer;
+	public final fun component11 ()Ljava/lang/Boolean;
+	public final fun component12 ()Lapp/revolt/model/user/RevoltUserApiModel$Bot;
+	public final fun component13 ()Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public final fun component14 ()Ljava/lang/Boolean;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/lang/Integer;
+	public final fun component8 ()Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public final fun component9 ()Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Ljava/util/List;Ljava/lang/Integer;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Boolean;Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Ljava/lang/Boolean;)Lapp/revolt/model/user/RevoltUserApiModel;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserApiModel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Ljava/util/List;Ljava/lang/Integer;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Boolean;Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Ljava/lang/Boolean;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserApiModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvatar ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun getBadges ()Ljava/lang/Integer;
+	public final fun getBot ()Lapp/revolt/model/user/RevoltUserApiModel$Bot;
+	public final fun getDiscriminator ()Ljava/lang/String;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFlags ()Ljava/lang/Integer;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getOnline ()Ljava/lang/Boolean;
+	public final fun getPrivileged ()Ljava/lang/Boolean;
+	public final fun getProfile ()Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public final fun getRelations ()Ljava/util/List;
+	public final fun getRelationship ()Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public final fun getStatus ()Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public final fun getUsername ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserApiModel$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserApiModel;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserApiModel;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Bot {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserApiModel$Bot$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/model/user/RevoltUserApiModel$Bot;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserApiModel$Bot;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserApiModel$Bot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOwner ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserApiModel$Bot;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Bot$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserApiModel$Bot$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserApiModel$Bot;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserApiModel$Bot;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Bot$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Relationship {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserApiModel$Relationship$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;)Lapp/revolt/model/user/RevoltUserApiModel$Relationship;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserApiModel$Relationship;Ljava/lang/String;Lapp/revolt/model/general/RevoltRelationshipStatusApiType;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserApiModel$Relationship;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getStatus ()Lapp/revolt/model/general/RevoltRelationshipStatusApiType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserApiModel$Relationship;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Relationship$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserApiModel$Relationship$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserApiModel$Relationship;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserApiModel$Relationship;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserApiModel$Relationship$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserChangeUsernameApiRequest {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getPassword ()Ljava/lang/String;
+	public final fun getUsername ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserChangeUsernameApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserChangeUsernameApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserEditApiRequest {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserEditApiRequest$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun component3 ()Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public final fun component4 ()Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public final fun component5 ()Ljava/lang/Integer;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;)Lapp/revolt/model/user/RevoltUserEditApiRequest;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserEditApiRequest;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Lapp/revolt/model/user/RevoltUserStatusApiModel;Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserEditApiRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvatar ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun getBadges ()Ljava/lang/Integer;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFlags ()Ljava/lang/Integer;
+	public final fun getProfile ()Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public final fun getRemove ()Ljava/util/List;
+	public final fun getStatus ()Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserEditApiRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserEditApiRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserEditApiRequest$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserEditApiRequest;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserEditApiRequest;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserEditApiRequest$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserEditApiRequest$FieldsUser : java/lang/Enum {
+	public static final field Avatar Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static final field Companion Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser$Companion;
+	public static final field DisplayName Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static final field ProfileBackground Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static final field ProfileContent Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static final field StatusPresence Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static final field StatusText Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+	public static fun values ()[Lapp/revolt/model/user/RevoltUserEditApiRequest$FieldsUser;
+}
+
+public final class app/revolt/model/user/RevoltUserEditApiRequest$FieldsUser$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserFlagsApiResponse {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserFlagsApiResponse$Companion;
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun copy (I)Lapp/revolt/model/user/RevoltUserFlagsApiResponse;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserFlagsApiResponse;IILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserFlagsApiResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFlags ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserFlagsApiResponse;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserFlagsApiResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserFlagsApiResponse$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserFlagsApiResponse;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserFlagsApiResponse;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserFlagsApiResponse$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserPresenceApiType : java/lang/Enum {
+	public static final field Busy Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static final field Companion Lapp/revolt/model/user/RevoltUserPresenceApiType$Companion;
+	public static final field Focus Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static final field Idle Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static final field Invisible Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static final field Online Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public static fun values ()[Lapp/revolt/model/user/RevoltUserPresenceApiType;
+}
+
+public final class app/revolt/model/user/RevoltUserPresenceApiType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserProfileApiModel {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserProfileApiModel$Companion;
+	public fun <init> ()V
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;)V
+	public synthetic fun <init> (Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;)Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserProfileApiModel;Ljava/lang/String;Lapp/revolt/model/general/RevoltFileApiModel;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackground ()Lapp/revolt/model/general/RevoltFileApiModel;
+	public final fun getContent ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserProfileApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserProfileApiModel$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserProfileApiModel$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserProfileApiModel;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserProfileApiModel;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserProfileApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserStatusApiModel {
+	public static final field Companion Lapp/revolt/model/user/RevoltUserStatusApiModel$Companion;
+	public fun <init> ()V
+	public synthetic fun <init> (ILjava/lang/String;Lapp/revolt/model/user/RevoltUserPresenceApiType;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lapp/revolt/model/user/RevoltUserPresenceApiType;)V
+	public synthetic fun <init> (Ljava/lang/String;Lapp/revolt/model/user/RevoltUserPresenceApiType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public final fun copy (Ljava/lang/String;Lapp/revolt/model/user/RevoltUserPresenceApiType;)Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public static synthetic fun copy$default (Lapp/revolt/model/user/RevoltUserStatusApiModel;Ljava/lang/String;Lapp/revolt/model/user/RevoltUserPresenceApiType;ILjava/lang/Object;)Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPresence ()Lapp/revolt/model/user/RevoltUserPresenceApiType;
+	public final fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/model/user/RevoltUserStatusApiModel;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/model/user/RevoltUserStatusApiModel$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/model/user/RevoltUserStatusApiModel$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/model/user/RevoltUserStatusApiModel;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/model/user/RevoltUserStatusApiModel;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/model/user/RevoltUserStatusApiModel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/services/RevoltAdminApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltBotsApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltChannelsApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltCoreApiService {
+	public static final field Companion Lapp/revolt/services/RevoltCoreApiService$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun fetchConfiguration (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/RevoltCoreApiService$Companion {
+}
+
+public final class app/revolt/services/RevoltCustomisationApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltInvitesApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltMiscApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltServersApiService {
+	public fun <init> ()V
+}
+
+public final class app/revolt/services/RevoltUsersApiService {
+	public static final field Companion Lapp/revolt/services/RevoltUsersApiService$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun changeUsername (Lapp/revolt/model/user/RevoltUserChangeUsernameApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun editUser (Ljava/lang/String;Lapp/revolt/model/user/RevoltUserEditApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchSelf (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchUser (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchUserDefaultAvatar (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchUserFlags (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchUserProfile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/RevoltUsersApiService$Companion {
+}
+
+public final class app/revolt/services/auth/RevoltAccountApiService {
+	public static final field Companion Lapp/revolt/services/auth/RevoltAccountApiService$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun changeEmail (Lapp/revolt/model/auth/account/request/RevoltChangeEmailApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun changePassword (Lapp/revolt/model/auth/account/request/RevoltChangePasswordApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun confirmAccountDeletion (Lapp/revolt/model/auth/account/request/RevoltConfirmAccountDeletionApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun createAccount (Lapp/revolt/model/auth/account/request/RevoltCreateAccountApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun deleteAccount (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun disableAccount (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchAccount (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun resendVerification (Lapp/revolt/model/auth/account/request/RevoltResendVerificationApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun resetPassword (Lapp/revolt/model/auth/account/request/RevoltResetPasswordApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun sendPasswordReset (Lapp/revolt/model/auth/account/request/RevoltSendPasswordResetApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun verifyEmail (Lapp/revolt/model/auth/account/request/RevoltVerifyEmailApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/auth/RevoltAccountApiService$Companion {
+}
+
+public final class app/revolt/services/auth/RevoltAuthApiService {
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun getAccount ()Lapp/revolt/services/auth/RevoltAccountApiService;
+	public final fun getMfa ()Lapp/revolt/services/auth/RevoltMFAApiService;
+	public final fun getOnboarding ()Lapp/revolt/services/auth/RevoltOnboardingApiService;
+	public final fun getSession ()Lapp/revolt/services/auth/RevoltSessionApiServiec;
+}
+
+public final class app/revolt/services/auth/RevoltMFAApiService {
+	public static final field Companion Lapp/revolt/services/auth/RevoltMFAApiService$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun createMFATicket (Lapp/revolt/model/auth/mfa/request/RevoltCreateMFATicketApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun disableTOTP2FA (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun enableTOTP2FA (Lapp/revolt/model/auth/RevoltMFAApiModel;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchRecoveryCodes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun generateRecoveryCodes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun generateTOTPSecret (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getMFAMethods (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mfaStatus (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/auth/RevoltMFAApiService$Companion {
+}
+
+public final class app/revolt/services/auth/RevoltOnboardingApiService {
+	public static final field Companion Lapp/revolt/services/auth/RevoltOnboardingApiService$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun complete (Lapp/revolt/model/auth/onboarding/request/RevoltOnboardingCompleteApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun status (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/auth/RevoltOnboardingApiService$Companion {
+}
+
+public final class app/revolt/services/auth/RevoltSessionApiServiec {
+	public static final field Companion Lapp/revolt/services/auth/RevoltSessionApiServiec$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun deleteSession (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun deleteSessions (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun editSession (Ljava/lang/String;Lapp/revolt/model/auth/session/request/RevoltSessionEditApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun fetchSessions (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun login (Lapp/revolt/model/auth/session/request/RevoltLoginApiRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun logout (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/services/auth/RevoltSessionApiServiec$Companion {
+}
+
+public final class app/revolt/websocket/RevoltApiWebSocket {
+	public static final field Companion Lapp/revolt/websocket/RevoltApiWebSocket$Companion;
+	public fun <init> (Lio/ktor/client/HttpClient;)V
+	public final fun getIncomingEvents ()Lkotlinx/coroutines/channels/Channel;
+	public final fun initialize (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun sendEvent (Lapp/revolt/websocket/client/RevoltClientApiEvent;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/revolt/websocket/RevoltApiWebSocket$Companion {
+}
+
+public abstract class app/revolt/websocket/client/RevoltClientApiEvent {
+	public static final field Companion Lapp/revolt/websocket/client/RevoltClientApiEvent$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/client/RevoltClientApiEvent;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Authenticate : app/revolt/websocket/client/RevoltClientApiEvent {
+	public static final field Companion Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Authenticate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/client/RevoltClientApiEvent$Authenticate;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Authenticate$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$BeginTyping : app/revolt/websocket/client/RevoltClientApiEvent {
+	public static final field Companion Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannel ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$BeginTyping$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/client/RevoltClientApiEvent$BeginTyping;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$BeginTyping$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$EndTyping : app/revolt/websocket/client/RevoltClientApiEvent {
+	public static final field Companion Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;Ljava/lang/String;ILjava/lang/Object;)Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannel ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$EndTyping$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/client/RevoltClientApiEvent$EndTyping;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$EndTyping$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Ping : app/revolt/websocket/client/RevoltClientApiEvent {
+	public static final field Companion Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping$Companion;
+	public synthetic fun <init> (IJLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (J)V
+	public final fun component1 ()J
+	public final fun copy (J)Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;JILjava/lang/Object;)Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Ping$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/client/RevoltClientApiEvent$Ping;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/client/RevoltClientApiEvent$Ping$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class app/revolt/websocket/server/RevoltServerApiEvent {
+	public static final field Companion Lapp/revolt/websocket/server/RevoltServerApiEvent$Companion;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Authenticated : app/revolt/websocket/server/RevoltServerApiEvent {
+	public static final field INSTANCE Lapp/revolt/websocket/server/RevoltServerApiEvent$Authenticated;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Bulk : app/revolt/websocket/server/RevoltServerApiEvent {
+	public static final field Companion Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk$Companion;
+	public synthetic fun <init> (ILjava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;Ljava/util/List;ILjava/lang/Object;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvents ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Bulk$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/server/RevoltServerApiEvent$Bulk;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Bulk$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Error : app/revolt/websocket/server/RevoltServerApiEvent {
+	public static final field Companion Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$Companion;
+	public synthetic fun <init> (ILapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;)V
+	public final fun component1 ()Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public final fun copy (Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;ILjava/lang/Object;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Error$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/server/RevoltServerApiEvent$Error;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Error$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType : java/lang/Enum {
+	public static final field AlreadyAuthenticated Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static final field Companion Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType$Companion;
+	public static final field InternalError Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static final field InvalidSession Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static final field LabelMe Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static final field OnboardingNotFinished Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+	public static fun values ()[Lapp/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Error$ErrorType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Pong : app/revolt/websocket/server/RevoltServerApiEvent {
+	public static final field Companion Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong$Companion;
+	public synthetic fun <init> (IJLkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (J)V
+	public final fun component1 ()J
+	public final fun copy (J)Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;
+	public static synthetic fun copy$default (Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;JILjava/lang/Object;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final synthetic fun write$Self (Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Pong$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lapp/revolt/websocket/server/RevoltServerApiEvent$Pong;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class app/revolt/websocket/server/RevoltServerApiEvent$Pong$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
