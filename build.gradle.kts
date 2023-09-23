@@ -2,11 +2,16 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.binary.compatibility.validator)
+    alias(libs.plugins.dokka)
     id("maven-publish")
 }
 
-group = "ge.ted3x"
-version = "1.0-SNAPSHOT"
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
+}
+
+group = "com.github.ted3x"
+version = "0.0.1-beta"
 
 repositories {
     mavenCentral()

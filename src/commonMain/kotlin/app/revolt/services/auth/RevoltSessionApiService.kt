@@ -9,7 +9,7 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
-class RevoltSessionApiServiec(private val client: HttpClient) {
+class RevoltSessionApiService(private val client: HttpClient) {
 
     suspend fun login(request: RevoltLoginApiRequest): RevoltLoginApiResponse = client.post(LOGIN_PATH) {
         contentType(ContentType.Application.Json)
