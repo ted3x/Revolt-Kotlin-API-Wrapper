@@ -1,9 +1,9 @@
-package app.revolt.endpoints.auth
+package app.revolt.services.auth
 
 import app.revolt.TestUtils
-import app.revolt.endpoints.auth.RevoltAccountApiService.Companion.CONFIRM_ACCOUNT_DELETION_PATH
-import app.revolt.endpoints.auth.RevoltAccountApiService.Companion.CREATE_ACCOUNT_PATH
-import app.revolt.endpoints.auth.RevoltAccountApiService.Companion.RESEND_VERIFICATION_PATH
+import app.revolt.services.auth.RevoltAccountApiService.Companion.CONFIRM_ACCOUNT_DELETION_PATH
+import app.revolt.services.auth.RevoltAccountApiService.Companion.CREATE_ACCOUNT_PATH
+import app.revolt.services.auth.RevoltAccountApiService.Companion.RESEND_VERIFICATION_PATH
 import app.revolt.model.auth.account.request.RevoltConfirmAccountDeletionApiRequest
 import app.revolt.model.auth.account.request.RevoltCreateAccountApiRequest
 import app.revolt.model.auth.account.request.RevoltResendVerificationApiRequest

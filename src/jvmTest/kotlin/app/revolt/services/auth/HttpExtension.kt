@@ -1,4 +1,4 @@
-package app.revolt.endpoints.auth
+package app.revolt.services.auth
 
 import app.revolt.RevoltApiJsonFactory
 import app.revolt.utils.RevoltApiConstants

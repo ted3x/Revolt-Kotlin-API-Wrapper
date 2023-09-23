@@ -1,4 +1,4 @@
-package app.revolt.endpoints.auth
+package app.revolt.services.auth
 
 import app.revolt.model.auth.session.response.RevoltFetchSessionApiResponse
 import app.revolt.model.auth.session.request.RevoltLoginApiRequest

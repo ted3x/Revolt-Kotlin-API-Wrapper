@@ -1,4 +1,4 @@
-package app.revolt.endpoints
+package app.revolt.services
 
 class RevoltInvitesApiService {
 }

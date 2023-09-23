@@ -1,4 +1,4 @@
-package app.revolt.endpoints
+package app.revolt.services
 
 import app.revolt.model.user.*
 import io.ktor.client.*

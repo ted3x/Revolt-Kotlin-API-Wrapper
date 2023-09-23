@@ -2,9 +2,9 @@ package app.revolt
 
 import app.revolt.client.ApiClientProvider
 import app.revolt.client.RevoltApiClientProvider
-import app.revolt.endpoints.*
-import app.revolt.endpoints.auth.RevoltAuthApiService
+import app.revolt.services.auth.RevoltAuthApiService
 import app.revolt.exception.RevoltApiExceptionHandler
+import app.revolt.services.*
 import app.revolt.websocket.RevoltApiWebSocket
 
 class RevoltApi internal constructor(provider: ApiClientProvider) {

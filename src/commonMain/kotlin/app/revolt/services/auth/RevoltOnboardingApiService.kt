@@ -1,4 +1,4 @@
-package app.revolt.endpoints.auth
+package app.revolt.services.auth
 
 import app.revolt.model.auth.onboarding.request.RevoltOnboardingCompleteApiRequest
 import app.revolt.model.auth.onboarding.response.RevoltOnboardingStatusApiResponse
