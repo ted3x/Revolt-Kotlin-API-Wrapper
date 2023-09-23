@@ -16,8 +16,6 @@ An intuitive and lightweight Kotlin wrapper for the Revolt API.
 ## Installation
 
 ```kotlin
-// Add installation instructions. 
-// For example, if it's a Gradle dependency:
 implementation 'ge.ted3x:revolt-kotlin:1.0.0'
 ```
 
