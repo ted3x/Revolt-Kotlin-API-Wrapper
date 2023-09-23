@@ -1,5 +1,6 @@
 package app.revolt.client
 
+import app.revolt.RevoltApiConfig
 import app.revolt.exception.RevoltApiExceptionHandler
 import app.revolt.utils.RevoltApiConstants
 import io.ktor.client.*
@@ -13,14 +14,22 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 internal class RevoltApiClientProvider(
+    private val config: RevoltApiConfig,
     private val json: Json,
     private val exceptionHandler: RevoltApiExceptionHandler,
     private val baseUrl: String = RevoltApiConstants.BASE_URL,
     private val logger: Logger = Logger.DEFAULT
-): ApiClientProvider {
+) : ApiClientProvider {
+
+    private var authToken: String? = config.token
+        get() = field ?: config.token
 
     override val client: HttpClient by lazy {
         HttpClient(defaultConfig)
+    }
+
+    override fun updateToken(token: String) {
+        authToken = token
     }
 
     private val defaultConfig: HttpClientConfig<*>.() -> Unit = {
@@ -40,6 +49,7 @@ internal class RevoltApiClientProvider(
         defaultRequest {
             host = baseUrl
             url { protocol = URLProtocol.HTTPS }
+            authToken?.let { headers.append(AUTH_TOKEN_HEADER, it) }
         }
 
         expectSuccess = true
@@ -49,5 +59,9 @@ internal class RevoltApiClientProvider(
                 exceptionHandler.handle(json, cause, request)
             }
         }
+    }
+
+    companion object {
+        private const val AUTH_TOKEN_HEADER = "X-Session-Token"
     }
 }

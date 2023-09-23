@@ -7,7 +7,7 @@ import app.revolt.exception.RevoltApiExceptionHandler
 import app.revolt.services.*
 import app.revolt.websocket.RevoltApiWebSocket
 
-class RevoltApi internal constructor(provider: ApiClientProvider) {
+class RevoltApi internal constructor(private val provider: ApiClientProvider) {
 
     private val client = provider.client
 
@@ -23,10 +23,15 @@ class RevoltApi internal constructor(provider: ApiClientProvider) {
     val users by lazy { RevoltUsersApiService(client) }
 
     val ws by lazy { RevoltApiWebSocket(client) }
+
+    fun updateToken(token: String) {
+        provider.updateToken(token)
+    }
 }
 
-fun revoltApi() = RevoltApi(
+fun revoltApi(config: RevoltApiConfig) = RevoltApi(
     provider = RevoltApiClientProvider(
+        config = config,
         json = RevoltApiJsonFactory.create(),
         exceptionHandler = RevoltApiExceptionHandler()
     )
