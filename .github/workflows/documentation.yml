@@ -24,5 +24,6 @@ jobs:
       - uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           folder: build/dokka/html
-          branch: docs
+          token: ${{ secrets.PAT }}
+          branch: revolt-kotlin-api
           repository-name: ted3x/ted3x.github.io
