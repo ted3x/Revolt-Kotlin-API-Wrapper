@@ -1,7 +1,7 @@
 package app.revolt.endpoints.auth
 
 import app.revolt.RevoltApiJsonFactory
-import app.revolt.RevoltApi.Companion.BASE_URL
+import app.revolt.utils.RevoltApiConstants
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.*
@@ -15,14 +15,14 @@ fun mockHttpClient(
 ) = HttpClient(MockEngine) {
     val jsonFiles = mutableMapOf<String, String>()
     responses.entries.forEach {
-        jsonFiles["https://$BASE_URL/${it.key}"] = it.value
+        jsonFiles["https://${RevoltApiConstants.BASE_URL}${it.key}"] = it.value
     }
     val headers = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
     defaultRequest {
         url {
             protocol = URLProtocol.HTTPS
-            host = BASE_URL
+            host = RevoltApiConstants.BASE_URL
         }
     }
 

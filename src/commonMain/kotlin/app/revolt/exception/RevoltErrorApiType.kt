@@ -1,4 +1,4 @@
-package app.revolt
+package app.revolt.exception
 
 enum class RevoltErrorApiType(val type: String) {
     Core("Core"),

@@ -1,4 +1,4 @@
-package app.revolt
+package app.revolt.exception
 
 enum class RevoltUserPermissionApiType(val type: String) {
     Access("Access"),

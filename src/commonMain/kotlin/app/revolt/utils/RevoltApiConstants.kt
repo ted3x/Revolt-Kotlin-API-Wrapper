@@ -1,6 +1,7 @@
 package app.revolt.utils
 
-object RevoltApiConstants {
+internal object RevoltApiConstants {
 
+    const val BASE_URL = "api.revolt.chat/"
     const val ID = "_id"
 }
