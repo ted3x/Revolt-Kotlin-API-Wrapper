@@ -3,7 +3,8 @@ package app.revolt.exception
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class RevoltApiException(open val error: RevoltErrorApiType, open val location: String?) : Throwable(error.type) {
+sealed class RevoltApiException(open val error: RevoltErrorApiType, open val location: String?) :
+    Throwable(error.type) {
     data class Default(override val error: RevoltErrorApiType, override val location: String?) :
         RevoltApiException(error, location)
 
@@ -30,6 +31,8 @@ sealed class RevoltApiException(open val error: RevoltErrorApiType, open val loc
         val fieldError: String?,
         override val location: String?
     ) : RevoltApiException(RevoltErrorApiType.FieldValidation, location)
+
+    data class RateLimitException(val retryAfter: Int) : RevoltApiException(RevoltErrorApiType.RateLimit, null)
 
     data object Unknown : RevoltApiException(RevoltErrorApiType.Unknown, null)
 }

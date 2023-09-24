@@ -3,6 +3,8 @@ package app.revolt.exception
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.serialization.json.*
 import kotlin.enums.EnumEntries
 
@@ -23,6 +25,9 @@ class RevoltApiExceptionHandler {
     suspend fun handle(json: Json, cause: Throwable, request: HttpRequest) {
         val clientException = cause as? ClientRequestException ?: throw RevoltApiException.Unknown
         val jsonElement = json.parseToJsonElement(clientException.response.body())
+
+        checkRateLimitException(clientException.response, jsonElement)
+
         val type = jsonElement.jsonObject[ERROR_FIELD_TYPE]?.jsonPrimitive?.content
         val errorType = RevoltErrorApiType.entries.firstOrNull { it.type == type } ?: throw RevoltApiException.Unknown
 
@@ -46,6 +51,24 @@ class RevoltApiExceptionHandler {
             else -> RevoltApiException.Default(errorType, getLocationValue(jsonElement))
         }
     }
+
+    /**
+     * Checks the [response] for a rate limit exception (HTTP 429) and throws a [RevoltApiException.RateLimitException]
+     * if the response indicates too many requests.
+     *
+     * @param response The HTTP response to check for rate limit exceptions.
+     * @param jsonElement The parsed JSON element from the response.
+     *
+     * @throws RevoltApiException.RateLimitException if the [response] status is `TooManyRequests`.
+     * The exception will contain the retry-after duration provided by the server.
+     */
+    private fun checkRateLimitException(response: HttpResponse, jsonElement: JsonElement) {
+        if (response.status == HttpStatusCode.TooManyRequests) {
+            val retryAfter = jsonElement.jsonObject[ERROR_FIELD_RETRY_AFTER]?.jsonPrimitive?.int!!
+            throw RevoltApiException.RateLimitException(retryAfter)
+        }
+    }
+
 
     /**
      * Creates an exception indicating that a specific count limit was exceeded.
@@ -147,5 +170,6 @@ class RevoltApiExceptionHandler {
         private const val ERROR_FIELD_LOCATION = "location"
         private const val ERROR_FIELD_ERROR = "error"
         private const val ERROR_FIELD_TYPE = "type"
+        private const val ERROR_FIELD_RETRY_AFTER = "retry_after"
     }
 }

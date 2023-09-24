@@ -56,5 +56,8 @@ enum class RevoltErrorApiType(val type: String) {
     NoEffect("NoEffect"),
     FailedValidation("FailedValidation"),
     InvalidToken("InvalidToken"),
+
+    // Custom
+    RateLimit("RateLimit"),
     Unknown("Unknown")
 }
