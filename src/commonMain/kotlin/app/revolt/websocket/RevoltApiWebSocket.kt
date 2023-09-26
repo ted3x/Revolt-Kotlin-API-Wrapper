@@ -13,36 +13,32 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class RevoltApiWebSocket(private val client: HttpClient) {
+class RevoltApiWebSocket(private val client: HttpClient, private val json: Json) {
 
     val incomingEvents = Channel<RevoltServerApiEvent>()
 
     private lateinit var socket: DefaultClientWebSocketSession
 
-    suspend fun initialize() {
-        socket = client.webSocketSession(urlString = WEBSOCKET_URL)
+    suspend fun initialize(webSocketUrl: String) {
+        socket = client.webSocketSession(webSocketUrl)
         start()
     }
 
     suspend fun sendEvent(event: RevoltClientApiEvent) {
         socket.sendSerialized(event)
-        println(Json.encodeToString(event))
+        println(json.encodeToString(event))
     }
 
     private suspend fun start() = CoroutineScope(Dispatchers.Default).launch {
         socket.incoming.consumeAsFlow().buffer(Channel.UNLIMITED).collect { frame ->
             try {
-                val json = frame.data.decodeToString()
-                val event = Json.decodeFromString<RevoltServerApiEvent>(json)
+                val decodedString = frame.data.decodeToString()
+                val event = json.decodeFromString<RevoltServerApiEvent>(decodedString)
                 println(event.toString())
                 incomingEvents.send(event)
             } catch (e: Exception) {
                 println("key is not added ${e.message}")
             }
         }
-    }
-
-    companion object {
-        private const val WEBSOCKET_URL = "wss://ws.revolt.chat"
     }
 }

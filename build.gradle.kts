@@ -11,7 +11,7 @@ subprojects {
 }
 
 group = "com.github.ted3x"
-version = "0.0.1-beta"
+version = "0.0.1-beta01"
 
 repositories {
     mavenCentral()

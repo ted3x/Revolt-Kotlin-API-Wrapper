@@ -22,7 +22,7 @@ class RevoltApi internal constructor(private val provider: ApiClientProvider) {
     val servers by lazy { RevoltServersApiService() }
     val users by lazy { RevoltUsersApiService(client) }
 
-    val ws by lazy { RevoltApiWebSocket(client) }
+    val ws by lazy { RevoltApiWebSocket(client, RevoltApiJsonFactory.create()) }
 
     fun updateToken(token: String) {
         provider.updateToken(token)
