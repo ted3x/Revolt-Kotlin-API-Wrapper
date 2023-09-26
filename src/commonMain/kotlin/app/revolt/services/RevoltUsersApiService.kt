@@ -1,5 +1,6 @@
 package app.revolt.services
 
+import app.revolt.exception.RevoltApiException
 import app.revolt.model.user.*
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -8,8 +9,28 @@ import io.ktor.http.*
 
 class RevoltUsersApiService(private val client: HttpClient) {
 
-    suspend fun fetchSelf(): RevoltUserApiModel = client.get(USERS_SELF_PATH).body()
-    suspend fun fetchUser(userId: String): RevoltUserApiModel = client.get(USERS_PATH + userId).body()
+    suspend fun fetchSelf(): RevoltUserApiModel {
+        val userModel = client.get(USERS_SELF_PATH).body<RevoltUserApiModel>()
+
+        // FetchSelf does not fetch Profile,idk why so for now it fetch profile as well in separate call
+        val profile = try {
+            fetchUserProfile(userModel.id)
+        } catch (e: RevoltApiException) {
+            null
+        }
+        return userModel.copy(profile = profile)
+    }
+
+    suspend fun fetchUser(userId: String): RevoltUserApiModel {
+        val userModel = client.get(USERS_PATH + userId).body<RevoltUserApiModel>()
+        val profile = try {
+            fetchUserProfile(userModel.id)
+        } catch (e: RevoltApiException) {
+            null
+        }
+        return userModel.copy(profile = profile)
+    }
+
     suspend fun editUser(userId: String, request: RevoltUserEditApiRequest): RevoltUserApiModel =
         client.patch(USERS_PATH + userId) {
             contentType(ContentType.Application.Json)
