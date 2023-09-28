@@ -20,9 +20,15 @@ class RevoltSessionApiService(private val client: HttpClient) {
         client.post(LOGOUT_PATH)
     }
 
-    suspend fun fetchSessions(): Array<RevoltFetchSessionApiResponse> = client.get(ALL_SESSIONS_PATH).body()
-    suspend fun deleteSessions() = client.delete(ALL_SESSIONS_PATH)
-    suspend fun deleteSession(sessionId: String) = client.delete(SESSIONS_PATH + sessionId)
+    suspend fun fetchSessions(): List<RevoltFetchSessionApiResponse> = client.get(ALL_SESSIONS_PATH).body()
+    suspend fun deleteSessions() {
+        client.delete(ALL_SESSIONS_PATH)
+    }
+
+    suspend fun deleteSession(sessionId: String) {
+        client.delete(SESSIONS_PATH + sessionId)
+    }
+
     suspend fun editSession(sessionId: String, request: RevoltSessionEditApiRequest) =
         client.patch(SESSIONS_PATH + sessionId) {
             contentType(ContentType.Application.Json)

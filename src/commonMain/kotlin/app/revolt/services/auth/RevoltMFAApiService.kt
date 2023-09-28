@@ -21,15 +21,29 @@ class RevoltMFAApiService(private val client: HttpClient) {
 
     suspend fun mfaStatus(): RevoltMFAStatusApiResponse = client.get(MFA_PATH).body()
 
-    suspend fun fetchRecoveryCodes(): Array<String> = client.post(MFA_RECOVERY_PATH).body()
-    suspend fun generateRecoveryCodes(): Array<String> = client.patch(MFA_RECOVERY_PATH).body()
-    suspend fun getMFAMethods(): Array<RevoltMFAMethodApiType> = client.patch(MFA_METHODS_PATH).body()
-    suspend fun enableTOTP2FA(request: RevoltMFAApiModel) = client.put(TOTP_PATH) {
-        contentType(ContentType.Application.Json)
-        setBody(request)
+    suspend fun fetchRecoveryCodes(): List<String> {
+        return client.post(MFA_RECOVERY_PATH).body()
     }
 
-    suspend fun generateTOTPSecret(): RevoltGenerateTOTPSecretApiResponse = client.post(TOTP_PATH).body()
+    suspend fun generateRecoveryCodes(): List<String> {
+        return client.patch(MFA_RECOVERY_PATH).body()
+    }
+
+    suspend fun getMFAMethods(): List<RevoltMFAMethodApiType> {
+        return client.patch(MFA_METHODS_PATH).body()
+    }
+
+    suspend fun enableTOTP2FA(request: RevoltMFAApiModel) {
+        client.put(TOTP_PATH) {
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }
+    }
+
+    suspend fun generateTOTPSecret(): RevoltGenerateTOTPSecretApiResponse {
+        return client.post(TOTP_PATH).body()
+    }
+
     suspend fun disableTOTP2FA() {
         client.delete(TOTP_PATH)
     }

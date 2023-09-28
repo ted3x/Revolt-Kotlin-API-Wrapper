@@ -34,5 +34,5 @@ sealed class RevoltApiException(open val error: RevoltErrorApiType, open val loc
 
     data class RateLimitException(val retryAfter: Int) : RevoltApiException(RevoltErrorApiType.RateLimit, null)
 
-    data object Unknown : RevoltApiException(RevoltErrorApiType.Unknown, null)
+    data class Unknown(override val message: String?) : RevoltApiException(RevoltErrorApiType.Unknown, null)
 }

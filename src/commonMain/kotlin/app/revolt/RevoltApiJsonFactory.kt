@@ -2,13 +2,16 @@ package app.revolt
 
 import app.revolt.model.auth.session.response.RevoltLoginApiResponse
 import app.revolt.model.general.RevoltMetadataApiModel
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 
 internal object RevoltApiJsonFactory {
 
+    @OptIn(ExperimentalSerializationApi::class)
     fun create(): Json = Json {
         encodeDefaults = true
+        explicitNulls = false
         ignoreUnknownKeys = true
         isLenient = true
         allowSpecialFloatingPointValues = true

@@ -23,13 +23,16 @@ class RevoltApiExceptionHandler {
      * @throws RevoltApiException When a recognized error is found.
      */
     suspend fun handle(json: Json, cause: Throwable, request: HttpRequest) {
-        val clientException = cause as? ClientRequestException ?: throw RevoltApiException.Unknown
+        request
+        val clientException = cause as? ClientRequestException ?: throw RevoltApiException.Unknown(cause.message)
         val jsonElement = json.parseToJsonElement(clientException.response.body())
 
         checkRateLimitException(clientException.response, jsonElement)
 
         val type = jsonElement.jsonObject[ERROR_FIELD_TYPE]?.jsonPrimitive?.content
-        val errorType = RevoltErrorApiType.entries.firstOrNull { it.type == type } ?: throw RevoltApiException.Unknown
+        val errorType = RevoltErrorApiType.entries.firstOrNull { it.type == type } ?: throw RevoltApiException.Unknown(
+            cause.message
+        )
 
         throw when (errorType) {
             RevoltErrorApiType.GroupTooLarge, RevoltErrorApiType.TooManyEmbeds,

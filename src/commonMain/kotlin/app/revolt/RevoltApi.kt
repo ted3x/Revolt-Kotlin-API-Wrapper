@@ -21,6 +21,7 @@ class RevoltApi internal constructor(private val provider: ApiClientProvider) {
     val misc by lazy { RevoltMiscApiService() }
     val servers by lazy { RevoltServersApiService() }
     val users by lazy { RevoltUsersApiService(client) }
+    val fileApi by lazy { RevoltFileApiService(client) }
 
     val ws by lazy { RevoltApiWebSocket(client, RevoltApiJsonFactory.create()) }
 

@@ -1,4 +1,4 @@
-package app.revolt.model.user
+package app.revolt.model.user.request
 
 import kotlinx.serialization.Serializable
 

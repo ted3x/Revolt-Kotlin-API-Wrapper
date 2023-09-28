@@ -2,6 +2,9 @@ package app.revolt.services
 
 import app.revolt.exception.RevoltApiException
 import app.revolt.model.user.*
+import app.revolt.model.user.request.RevoltUserChangeUsernameApiRequest
+import app.revolt.model.user.request.RevoltUserEditApiRequest
+import app.revolt.model.user.response.RevoltUserFlagsApiResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -31,8 +34,8 @@ class RevoltUsersApiService(private val client: HttpClient) {
         return userModel.copy(profile = profile)
     }
 
-    suspend fun editUser(userId: String, request: RevoltUserEditApiRequest): RevoltUserApiModel =
-        client.patch(USERS_PATH + userId) {
+    suspend fun editUser(request: RevoltUserEditApiRequest): RevoltUserApiModel =
+        client.patch(USERS_SELF_PATH) {
             contentType(ContentType.Application.Json)
             setBody(request)
         }.body()

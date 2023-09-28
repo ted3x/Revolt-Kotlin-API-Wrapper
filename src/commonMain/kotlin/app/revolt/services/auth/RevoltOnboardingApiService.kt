@@ -9,11 +9,15 @@ import io.ktor.http.*
 
 class RevoltOnboardingApiService(private val client: HttpClient) {
 
-    suspend fun status(): RevoltOnboardingStatusApiResponse = client.get(ONBOARDING_STATUS_PATH).body()
+    suspend fun status(): RevoltOnboardingStatusApiResponse {
+        return client.get(ONBOARDING_STATUS_PATH).body()
+    }
 
-    suspend fun complete(request: RevoltOnboardingCompleteApiRequest) = client.post(ONBOARDING_COMPLETE_PATH) {
-        contentType(ContentType.Application.Json)
-        setBody(request)
+    suspend fun complete(request: RevoltOnboardingCompleteApiRequest) {
+        client.post(ONBOARDING_COMPLETE_PATH) {
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }
     }
 
     companion object {
