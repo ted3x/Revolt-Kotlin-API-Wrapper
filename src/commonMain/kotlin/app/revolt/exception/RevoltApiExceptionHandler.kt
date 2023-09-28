@@ -28,6 +28,7 @@ class RevoltApiExceptionHandler {
         val jsonElement = json.parseToJsonElement(clientException.response.body())
 
         checkRateLimitException(clientException.response, jsonElement)
+        checkUnauthorizedException(clientException.response)
 
         val type = jsonElement.jsonObject[ERROR_FIELD_TYPE]?.jsonPrimitive?.content
         val errorType = RevoltErrorApiType.entries.firstOrNull { it.type == type } ?: throw RevoltApiException.Unknown(
@@ -72,6 +73,18 @@ class RevoltApiExceptionHandler {
         }
     }
 
+    /**
+     * Checks the [response] for unauthorized exception (HTTP 401) and throws a [RevoltApiException.Unauthorized]
+     *
+     * @param response The HTTP response to check for unauthorized exceptions.
+     *
+     * @throws RevoltApiException.Unauthorized if the [response] status is `Unauthorized`.
+     */
+    private fun checkUnauthorizedException(response: HttpResponse) {
+        if (response.status == HttpStatusCode.Unauthorized) {
+            throw RevoltApiException.Unauthorized
+        }
+    }
 
     /**
      * Creates an exception indicating that a specific count limit was exceeded.

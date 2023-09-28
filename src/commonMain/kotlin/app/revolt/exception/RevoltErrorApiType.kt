@@ -59,5 +59,6 @@ enum class RevoltErrorApiType(val type: String) {
 
     // Custom
     RateLimit("RateLimit"),
+    Unauthorized("Unauthorized"),
     Unknown("Unknown")
 }
