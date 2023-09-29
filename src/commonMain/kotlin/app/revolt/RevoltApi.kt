@@ -15,7 +15,7 @@ class RevoltApi internal constructor(private val provider: ApiClientProvider) {
     val auth by lazy { RevoltAuthApiService(client) }
     val admin by lazy { RevoltAdminApiService() }
     val bots by lazy { RevoltBotsApiService() }
-    val channels by lazy { RevoltChannelsApiService() }
+    val channels by lazy { RevoltChannelsApiService(client) }
     val customisation by lazy { RevoltCustomisationApiService() }
     val invites by lazy { RevoltInvitesApiService() }
     val misc by lazy { RevoltMiscApiService() }
