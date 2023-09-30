@@ -31,7 +31,7 @@ sealed class RevoltEmbedApiModel {
         val iconUrl: String? = null,
         @SerialName(RevoltApiConstants.COLOUR)
         val color: String? = null,
-    ) {
+    ): RevoltEmbedApiModel() {
 
         @Serializable
         @Polymorphic
@@ -137,5 +137,5 @@ sealed class RevoltEmbedApiModel {
         val media: RevoltFileApiModel? = null,
         @SerialName(RevoltApiConstants.COLOUR)
         val color: String? = null
-    )
+    ): RevoltEmbedApiModel()
 }

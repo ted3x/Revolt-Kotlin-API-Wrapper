@@ -46,6 +46,13 @@ internal object RevoltApiJsonFactory {
                 subclass(RevoltMessageApiModel.System.ChannelIconChanged::class)
                 subclass(RevoltMessageApiModel.System.ChannelOwnershipChanged::class)
             }
+            polymorphic(RevoltEmbedApiModel::class) {
+                subclass(RevoltEmbedApiModel.None::class)
+                subclass(RevoltEmbedApiModel.Website::class)
+                subclass(RevoltEmbedApiModel.Image::class)
+                subclass(RevoltEmbedApiModel.Video::class)
+                subclass(RevoltEmbedApiModel.Text::class)
+            }
             polymorphic(RevoltEmbedApiModel.Website.Special::class) {
                 subclass(RevoltEmbedApiModel.Website.Special.None::class)
                 subclass(RevoltEmbedApiModel.Website.Special.GIF::class)

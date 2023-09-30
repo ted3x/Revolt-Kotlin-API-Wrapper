@@ -36,36 +36,47 @@ data class RevoltMessageApiModel(
     @Polymorphic
     sealed class System {
 
+        @Serializable
         @SerialName("text")
         data class Text(val content: String) : System()
 
+        @Serializable
         @SerialName("user_added")
         data class UserAdded(val id: String, val by: String) : System()
 
+        @Serializable
         @SerialName("user_remove")
         data class UserRemoved(val id: String, val by: String) : System()
 
+        @Serializable
         @SerialName("user_joined")
         data class UserJoined(val id: String) : System()
 
+        @Serializable
         @SerialName("user_left")
         data class UserLeft(val id: String) : System()
 
+        @Serializable
         @SerialName("user_kicked")
         data class UserKicked(val id: String) : System()
 
+        @Serializable
         @SerialName("user_banned")
         data class UserBanned(val id: String) : System()
 
+        @Serializable
         @SerialName("channel_renamed")
         data class ChannelRenamed(val name: String, val by: String) : System()
 
+        @Serializable
         @SerialName("channel_description_changed")
         data class ChannelDescriptionChanged(val name: String, val by: String) : System()
 
+        @Serializable
         @SerialName("channel_icon_changed")
         data class ChannelIconChanged(val name: String, val by: String) : System()
 
+        @Serializable
         @SerialName("channel_ownership_changed")
         data class ChannelOwnershipChanged(val from: String, val to: String) : System()
     }
