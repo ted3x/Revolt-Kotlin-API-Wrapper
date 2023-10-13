@@ -1,5 +1,8 @@
 package app.revolt.websocket.server
 
+import app.revolt.model.channel.RevoltChannelApiModel
+import app.revolt.model.general.RevoltEmojiApiModel
+import app.revolt.model.server.RevoltServerApiModel
 import app.revolt.model.user.RevoltUserApiModel
 import app.revolt.model.websocket.RevoltUserUpdateApiModel
 import kotlinx.serialization.Polymorphic
@@ -12,7 +15,12 @@ sealed interface RevoltServerApiEvent {
 
     @Serializable
     @SerialName("Ready")
-    data class Ready(val users: List<RevoltUserApiModel>) : RevoltServerApiEvent
+    data class Ready(
+        val users: List<RevoltUserApiModel>,
+        val channels: List<RevoltChannelApiModel>,
+        val servers: List<RevoltServerApiModel>,
+        val emojis: List<RevoltEmojiApiModel>
+    ) : RevoltServerApiEvent
 
     @Serializable
     @SerialName("Error")
@@ -59,8 +67,4 @@ sealed interface RevoltServerApiEvent {
             Avatar
         }
     }
-
-//    @Serializable
-//    @SerialName("Ready")
-//    data class Ready(val users: List<User>) : RevoltServerEvent()
 }

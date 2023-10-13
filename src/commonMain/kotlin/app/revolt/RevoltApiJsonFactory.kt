@@ -3,6 +3,8 @@ package app.revolt
 import app.revolt.model.RevoltEmbedApiModel
 import app.revolt.model.RevoltMessageApiModel
 import app.revolt.model.auth.session.response.RevoltLoginApiResponse
+import app.revolt.model.channel.RevoltChannelApiModel
+import app.revolt.model.general.RevoltEmojiApiModel
 import app.revolt.model.general.RevoltMetadataApiModel
 import app.revolt.websocket.client.RevoltClientApiEvent
 import app.revolt.websocket.server.RevoltServerApiEvent
@@ -79,6 +81,17 @@ internal object RevoltApiJsonFactory {
                 subclass(RevoltServerApiEvent.Bulk::class)
                 subclass(RevoltServerApiEvent.Pong::class)
                 subclass(RevoltServerApiEvent.UserUpdate::class)
+            }
+            polymorphic(RevoltChannelApiModel::class) {
+                subclass(RevoltChannelApiModel.SavedMessages::class)
+                subclass(RevoltChannelApiModel.DirectMessage::class)
+                subclass(RevoltChannelApiModel.Group::class)
+                subclass(RevoltChannelApiModel.TextChannel::class)
+                subclass(RevoltChannelApiModel.VoiceChannel::class)
+            }
+            polymorphic(RevoltEmojiApiModel.Parent::class) {
+                subclass(RevoltEmojiApiModel.Parent.Server::class)
+                subclass(RevoltEmojiApiModel.Parent.Detached::class)
             }
         }
     }
