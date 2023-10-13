@@ -4,6 +4,8 @@ import app.revolt.model.RevoltEmbedApiModel
 import app.revolt.model.RevoltMessageApiModel
 import app.revolt.model.auth.session.response.RevoltLoginApiResponse
 import app.revolt.model.general.RevoltMetadataApiModel
+import app.revolt.websocket.client.RevoltClientApiEvent
+import app.revolt.websocket.server.RevoltServerApiEvent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -63,6 +65,20 @@ internal object RevoltApiJsonFactory {
                 subclass(RevoltEmbedApiModel.Website.Special.Soundcloud::class)
                 subclass(RevoltEmbedApiModel.Website.Special.Bandcamp::class)
                 subclass(RevoltEmbedApiModel.Website.Special.Streamable::class)
+            }
+            polymorphic(RevoltClientApiEvent::class) {
+                subclass(RevoltClientApiEvent.Authenticate::class)
+                subclass(RevoltClientApiEvent.Ping::class)
+                subclass(RevoltClientApiEvent.BeginTyping::class)
+                subclass(RevoltClientApiEvent.EndTyping::class)
+            }
+            polymorphic(RevoltServerApiEvent::class) {
+                subclass(RevoltServerApiEvent.Ready::class)
+                subclass(RevoltServerApiEvent.Error::class)
+                subclass(RevoltServerApiEvent.Authenticated::class)
+                subclass(RevoltServerApiEvent.Bulk::class)
+                subclass(RevoltServerApiEvent.Pong::class)
+                subclass(RevoltServerApiEvent.UserUpdate::class)
             }
         }
     }

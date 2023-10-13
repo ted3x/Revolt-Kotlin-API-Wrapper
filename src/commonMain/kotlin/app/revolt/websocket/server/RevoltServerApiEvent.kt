@@ -1,5 +1,6 @@
 package app.revolt.websocket.server
 
+import app.revolt.model.user.RevoltUserApiModel
 import app.revolt.model.websocket.RevoltUserUpdateApiModel
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
@@ -8,6 +9,10 @@ import kotlinx.serialization.Serializable
 @Polymorphic
 @Serializable
 sealed interface RevoltServerApiEvent {
+
+    @Serializable
+    @SerialName("Ready")
+    data class Ready(val users: List<RevoltUserApiModel>) : RevoltServerApiEvent
 
     @Serializable
     @SerialName("Error")

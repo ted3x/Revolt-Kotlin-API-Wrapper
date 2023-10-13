@@ -23,7 +23,6 @@ class RevoltApiExceptionHandler {
      * @throws RevoltApiException When a recognized error is found.
      */
     suspend fun handle(json: Json, cause: Throwable, request: HttpRequest) {
-        request
         val clientException = cause as? ClientRequestException ?: throw RevoltApiException.Unknown(cause.message)
         val jsonElement = json.parseToJsonElement(clientException.response.body())
 

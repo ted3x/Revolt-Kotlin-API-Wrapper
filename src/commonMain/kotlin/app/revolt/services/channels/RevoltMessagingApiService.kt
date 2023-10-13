@@ -19,6 +19,12 @@ class RevoltMessagingApiService(private val client: HttpClient) {
         return fetchMessageInternal(request, true)
     }
 
+    suspend fun fetchMessage(channelId: String, messageId: String): RevoltMessageApiModel {
+        return client.get(FETCH_MESSAGES_PATH.replace(RevoltApiConstants.TARGET, channelId) + "/$messageId") {
+            contentType(ContentType.Application.Json)
+        }.body()
+    }
+
     private suspend fun <T> fetchMessageInternal(
         request: RevoltFetchMessagesRequestApiModel,
         includeUsers: Boolean

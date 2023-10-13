@@ -8,11 +8,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RevoltServerMemberApiModel(
     @SerialName(RevoltApiConstants.ID)
-    val id: String,
+    val id: ID,
     @SerialName("joined_at")
     val joinedAt: String,
     val nickname: String? = null,
     val avatar: RevoltFileApiModel? = null,
     val roles: List<String>? = null,
     val timeout: String? = null
-)
+) {
+
+    @Serializable
+    data class ID(val user: String, val server: String)
+}
