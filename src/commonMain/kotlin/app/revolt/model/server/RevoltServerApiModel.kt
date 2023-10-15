@@ -16,7 +16,7 @@ data class RevoltServerApiModel(
     val categories: List<Category>? = null,
     val systemMessages: SystemMessages? = null,
     val roles: Map<String, RevoltServerRoleApiModel>? = null,
-    val defaultPermissions: Int,
+    val defaultPermissions: Int? = null,
     val icon: RevoltFileApiModel? = null,
     val banner: RevoltFileApiModel? = null,
     val flags: Int? = null,
@@ -34,12 +34,12 @@ data class RevoltServerApiModel(
     @Serializable
     data class SystemMessages(
         @SerialName("user_joined")
-        val userJoined: String,
+        val userJoined: String? = null,
         @SerialName("user_left")
-        val userLeft: String,
+        val userLeft: String? = null,
         @SerialName("user_kicked")
-        val userKicked: String,
+        val userKicked: String? = null,
         @SerialName("user_banned")
-        val userBanned: String,
+        val userBanned: String? = null,
     )
 }

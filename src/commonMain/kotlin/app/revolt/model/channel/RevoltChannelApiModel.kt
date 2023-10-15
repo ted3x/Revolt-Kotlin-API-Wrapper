@@ -3,12 +3,16 @@ package app.revolt.model.channel
 import app.revolt.model.general.RevoltFileApiModel
 import app.revolt.model.general.RevoltOverrideFieldApiModel
 import app.revolt.utils.RevoltApiConstants
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonClassDiscriminator
 
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @Polymorphic
+@JsonClassDiscriminator("channel_type")
 sealed interface RevoltChannelApiModel {
 
     @Serializable
@@ -20,7 +24,7 @@ sealed interface RevoltChannelApiModel {
     ): RevoltChannelApiModel
 
     @Serializable
-    @SerialName("SavedMessages")
+    @SerialName("DirectMessage")
     data class DirectMessage(
         @SerialName(RevoltApiConstants.ID)
         val id: String,
